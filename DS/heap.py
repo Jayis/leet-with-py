@@ -11,14 +11,12 @@ class MaxHeap():
     def add(self, h):
         node = Nodes(len(self.heap), h)
         self.heap.append(node)
-
         self.update(node)
-
-        return node
+        return node ## return the node, so we can keep the handle by map, achieving O(1) accessing nodes
 
     def remove(self, node):
-        last_node = self.heap.pop(-1)
-        if node.ind < len(self.heap):
+        last_node = self.heap.pop(-1) ## if we're removing last node, directly return
+        if node.ind < len(self.heap): ## don't enter this if. That will cause index-error.
             self.heap[node.ind] = last_node
             last_node.ind = node.ind
             self.update(last_node)
@@ -73,7 +71,7 @@ class MaxHeap():
     
 class Nodes():
     def __init__(self, ind, val):
-        self.ind = ind
+        self.ind = ind ## reverse mapping to index in heap
         self.val = val
 
     def __str__(self):
